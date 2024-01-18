@@ -32,14 +32,14 @@ button1.addEventListener("click", function () {
           let col = document.createElement("div");
 
           col.classList.add("col-md-4");
-          col.innerHTML = `<div class="card mb-4 shadow-sm">
+          col.innerHTML = `<div class="card mb-4 shadow-sm h-100">
               <img
                 src=${url}
                 class="bd-placeholder-img card-img-top"
               />
-              <div class="card-body">
+              <div class="card-body d-flex flex-column">
                 <h5 class="card-title">${photographer}</h5>
-                <p class="card-text">
+                <p class="card-text flex-grow-1 ">
                   <a href="${photographer_url}">${photographer_url}</a>
                 </p>
                 <div
@@ -56,7 +56,7 @@ button1.addEventListener("click", function () {
                       type="button"
                       class="btn btn-sm btn-outline-secondary" id="${i}"
                     >
-                      Edit
+                      Delete
                     </button>
                   </div>
                   <small class="text-muted">${photoID}</small>
@@ -64,8 +64,9 @@ button1.addEventListener("click", function () {
               </div>`;
           row.appendChild(col);
           deleteButton = document.getElementById(i);
-          deleteButton.addEventListener("click", (i) => {
-            i.closest(".card").remove();
+          deleteButton.addEventListener("click", (e) => {
+            console.log("click");
+            e.target.closest(".mb-4").remove();
           });
         });
       })
@@ -92,7 +93,7 @@ button2.addEventListener("click", function () {
       })
       .then((data) => {
         console.log(data);
-        data.photos.forEach((foto) => {
+        data.photos.forEach((foto, i) => {
           let url = foto.src.landscape;
           let photographer = foto.photographer;
           let photographer_url = foto.photographer_url;
@@ -101,14 +102,14 @@ button2.addEventListener("click", function () {
           let col = document.createElement("div");
 
           col.classList.add("col-md-4");
-          col.innerHTML = `<div class="card mb-4 shadow-sm">
+          col.innerHTML = `<div class="card mb-4 shadow-sm h-100 ">
               <img
                 src=${url}
                 class="bd-placeholder-img card-img-top"
               />
-              <div class="card-body">
+              <div class="card-body d-flex flex-column ">
                 <h5 class="card-title">${photographer}</h5>
-                <p class="card-text">
+                <p class="card-text flex-grow-1 ">
                   <a href="${photographer_url}">${photographer_url}</a>
                 </p>
                 <div
@@ -123,15 +124,20 @@ button2.addEventListener("click", function () {
                     </button>
                     <button
                       type="button"
-                      class="btn btn-sm btn-outline-secondary"
+                      class="btn btn-sm btn-outline-secondary" id="${i}"
                     >
-                      Edit
+                      Delete
                     </button>
                   </div>
                   <small class="text-muted">${photoID}</small>
                 </div>
               </div>`;
           row.appendChild(col);
+          deleteButton = document.getElementById(i);
+          deleteButton.addEventListener("click", (e) => {
+            console.log("click");
+            e.target.closest(".mb-4").remove();
+          });
         });
       })
       .catch();
